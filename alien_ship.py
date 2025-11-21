@@ -66,4 +66,10 @@ class Ship:
 
     def fire(self):
         return self.arsenal.fire_bullet(self.rect.center, self.side)
+    
+    def check_collisions(self, other_group):
+        if pygame.sprite.spritecollideany(self, other_group):
+            self.ship()
+            return True
+        return False
 

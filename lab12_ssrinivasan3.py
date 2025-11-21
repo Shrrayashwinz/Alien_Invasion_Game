@@ -14,7 +14,7 @@ import pygame
 from settings import Settings
 from alien_ship import Ship
 from arsenal import Arsenal 
-from alien import Alien
+from alien_fleet import AlienFleet
 
 class AlienInvasion:
     def __init__(self):
@@ -39,21 +39,42 @@ class AlienInvasion:
         self.laser_sound.set_volume(1.7)
 
         self.alien_ship = Ship(self, Arsenal(self), side='right')
-        self.alien = Alien(self, 10,10)
+        self.alien_fleet = AlienFleet(self)
+        self.alien_fleet.create_fleet()
+
 
 
     def run_game(self):
         while self.running:
             self._check_events()
             self.alien_ship.update()
-            self.alien.update()
+            self.alien_fleet.update_fleet()
+            self._check_collisions()
+            self._check_events()
             self._update_screen()
             self.clock.tick(self.settings.FPS)
+
+    def _check_collisions(self):
+        if self.alien_ship_ship.check_collisions(self.alien_fleet.fleet):
+            self._reset_level()
+
+
+        collisions = self.alien_fleet.check_collisions(self.alien_ship.arsenal.arsenal)
+    
+
+    def _reset_level(self):
+        self.alien_ship.arsenal.arsenal.empty()
+        self.alien_fleet.fleet.empty()
+        self.alien_fleet.create_fleet()
 
     def _update_screen(self):
         self.screen.blit(self.bg, (0, 0))
         self.alien_ship.draw()
-        self.alien.draw_alien()
+
+    def _reset_level(self):
+        self.hero_ship.arsenal.arsenal.empty()
+        self.alien_fleet.fleet.empty()
+        self.alien_fleet.create_fleet()        
         pygame.display.flip()
 
     def _check_events(self):
