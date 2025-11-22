@@ -69,7 +69,7 @@ class Ship:
     
     def check_collisions(self, other_group):
         if pygame.sprite.spritecollideany(self, other_group):
-            self.ship()
+            self._center_ship()
             return True
         return False
 

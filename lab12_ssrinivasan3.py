@@ -40,6 +40,10 @@ class AlienInvasion:
         self.laser_sound = pygame.mixer.Sound(self.settings.laser_sound)
         self.laser_sound.set_volume(1.7)
 
+        self.impact_sound = pygame.mixer.Sound(self.settings.impact)
+        self.impact_sound.set_volume(0.7)
+
+        
         self.hero_ship = Ship(self, Arsenal(self), side='right')
         self.alien_fleet = AlienFleet(self)
         self.alien_fleet.create_fleet()
@@ -50,7 +54,6 @@ class AlienInvasion:
         while self.running:
             self._check_events()
             if self.game_active:
-
                self.hero_ship.update()
                self.alien_fleet.update_fleet()
                self._check_collisions()
@@ -59,8 +62,11 @@ class AlienInvasion:
             self.clock.tick(self.settings.FPS)
 
     def _check_collisions(self):
-        if self.hero_ship_ship.check_collisions(self.alien_fleet.fleet):
-            self._reset_level()
+        if self.hero_ship.check_collisions(self.alien_fleet.fleet):
+            self._check_game_status()
+
+        if self.alien_fleet.check_fleet_bottom():
+            self._check_game_status()
 
 
         collisions = self.alien_fleet.check_collisions(self.hero_ship.arsenal.arsenal)
@@ -73,7 +79,7 @@ class AlienInvasion:
             sleep(1.5)
 
     def _check_game_status(self):
-        if self.game_stats.hero_ships_left > 0:
+        if self.game_stats.hero_ships_left > 0: 
             self.game_stats.hero_ships_left -= 1
             self._reset_level()
 
@@ -84,7 +90,7 @@ class AlienInvasion:
     
 
     def _reset_level(self):
-        self.alien_ship.arsenal.arsenal.empty()
+        self.hero_ship.arsenal.arsenal.empty()
         self.alien_fleet.fleet.empty()
         self.alien_fleet.create_fleet()
 
@@ -114,18 +120,21 @@ class AlienInvasion:
 
     def _check_keyup_events(self, event): 
         if event.key == pygame.K_KP_8:
-            self.alien_ship.moving_up = False
+            self.hero_ship.moving_up = False
         elif event.key == pygame.K_KP_2:
-            self.alien_ship.moving_down = False
+            self.hero_ship.moving_down = False
 
     def _check_keydown_events(self, event):
         if event.key == pygame.K_KP_8:
-            self.alien_ship.moving_up = True
+            self.hero_ship.moving_up = True
+
         elif event.key == pygame.K_KP_2:
-            self.alien_ship.moving_down = True
+            self.hero_ship.moving_down = True
+            
         elif event.key == pygame.K_KP_0:
-            if self.alien_ship.fire():
+            if self.hero_ship.fire():
                 self.laser_sound.play()
+                
         elif event.key == pygame.K_q:
             pygame.quit()
             sys.exit()

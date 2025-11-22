@@ -26,6 +26,7 @@ class Settings:
 
         self.bullet_file = Path.cwd() / 'Assets' / 'images' / 'laserBlast.png'
         self.laser_sound = Path.cwd() / 'Assets' / 'sound' / 'laser.mp3'
+        self.impact = Path.cwd() / 'Assets' / 'sound' / 'impactSound.mp3'
         self.bullet_speed = 10
         self.bullet_w = 20
         self.bullet_h = 75
@@ -39,6 +40,6 @@ class Settings:
         self.alien_w = 40
         self.alien_h = 40
         self.fleet_direction = 1
-        self.fleet_drop_speed = 25
+        self.fleet_drop_speed = 1
         self.alien_side = "right"
 
