@@ -5,9 +5,6 @@ Author: Shrrayash Srinivasan
 
 Purpose: Got the alien class set up.
 
-!!!!THIS IS A TUTORIAL CODE!!!!
-
-
 Date: November 18, 2025
 """
 import pygame
@@ -42,7 +39,7 @@ class Alien(Sprite):
         temp_speed = self.settings.fleet_speed
 
              
-        self.y += temp_speed * self.fleet.fleet_direction
+        self.x += temp_speed * self.fleet.fleet_direction
         self.rect.y = self.y
         self.rect.x = self.x
      
