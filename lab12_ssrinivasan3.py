@@ -40,10 +40,10 @@ class AlienInvasion:
         self.laser_sound = pygame.mixer.Sound(self.settings.laser_sound)
         self.laser_sound.set_volume(1.7)
 
-        self.alien_ship = Ship(self, Arsenal(self), side='right')
+        self.hero_ship = Ship(self, Arsenal(self), side='right')
         self.alien_fleet = AlienFleet(self)
         self.alien_fleet.create_fleet()
-
+        self.game_active = True
 
 
     def run_game(self):
@@ -94,7 +94,7 @@ class AlienInvasion:
         self.alien_fleet.draw()
         pygame.display.flip()
 
-        
+
     def _reset_level(self):
         self.hero_ship.arsenal.arsenal.empty()
         self.alien_fleet.fleet.empty()
