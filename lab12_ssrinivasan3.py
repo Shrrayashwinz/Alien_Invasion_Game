@@ -20,7 +20,11 @@ from time import sleep
 
 
 class AlienInvasion:
+    """This is the main control that manages the Alien Invasion game.
+    
+    """
     def __init__(self):
+        """Initializes game resources, settings, and the needed objects."""
         pygame.init()
         self.settings = Settings()
         self.game_stats = GameStats(self.settings.starting_hero_ship_count)
@@ -67,9 +71,13 @@ class AlienInvasion:
     def _check_collisions(self):
         if self.hero_ship.check_collisions(self.alien_fleet.fleet):
             self._check_game_status()
+            if self.game_active:
+                self._reset_level()
 
         if self.alien_fleet.check_fleet_right():
             self._check_game_status()
+            if self.game_active:
+                self._reset_level()
 
         collisions = self.alien_fleet.check_collisions(self.hero_ship.arsenal.arsenal)
         if collisions:
@@ -79,8 +87,7 @@ class AlienInvasion:
         if self.alien_fleet.check_destroyed_status():
             self._reset_level()
             sleep(1.5)
-
-        
+       
 
     def _check_game_status(self):
         if self.game_stats.hero_ships_left > 0: 
@@ -119,20 +126,20 @@ class AlienInvasion:
                 self._check_keyup_events(event)
 
     def _check_keyup_events(self, event): 
-        if event.key == pygame.K_KP_8:
+        if event.key == pygame.K_t:
             self.hero_ship.moving_up = False
             
-        elif event.key == pygame.K_KP_2:
+        elif event.key == pygame.K_g:
             self.hero_ship.moving_down = False
 
     def _check_keydown_events(self, event):
-        if event.key == pygame.K_KP_8:
+        if event.key == pygame.K_t:
             self.hero_ship.moving_up = True
 
-        elif event.key == pygame.K_KP_2:
+        elif event.key == pygame.K_g:
             self.hero_ship.moving_down = True
             
-        elif event.key == pygame.K_KP_0:
+        elif event.key == pygame.K_SPACE:
             if self.hero_ship.fire():
                 self.laser_sound.play()
                 
