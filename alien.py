@@ -13,7 +13,7 @@ from pygame.sprite import Sprite
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-     from alien_navy import AlienFleet
+     from alien_fleet import AlienFleet
 
 class Alien(Sprite):
      """Manages the alien position and settings and behavior in the alien invasion game."""
