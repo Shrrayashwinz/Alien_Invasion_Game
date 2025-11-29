@@ -40,7 +40,8 @@ class Settings:
         self.bullet_h = 75
         self.bullet_amount = 30
 
-        self.ship_side = "left"  
+        self.ship_side = "left" 
+        self.ship_side = "right" 
 
 
         '''Alien fleet settings'''

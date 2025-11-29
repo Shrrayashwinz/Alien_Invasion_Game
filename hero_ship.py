@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
 class Ship:
     """Manages the hero ship's stats, initialization, movement, bullets, and collision detection."""
-    def __init__(self, game: 'AlienInvasion', arsenal: 'Arsenal', side='left'):
+    def __init__(self, game: 'AlienInvasion', arsenal: 'Arsenal', side='right'):
         super().__init__()
         self.game = game
         self.settings = game.settings
